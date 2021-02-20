@@ -76,24 +76,16 @@ public class MainFm extends Application {
         processController = new ProcessController();
         initKeyHook();
 
-//        ToggleGroup segmentGrp = new ToggleGroup();
-//        ToggleButton resetBtn = CommUtils.createToggleButton(segmentGrp, "resetBtn", this::resetText, "重置");
-//        ToggleButton segmentBtn = CommUtils.createToggleButton(segmentGrp, "segmentBtn", this::segmentText, "智能分段");
-//        resetBtn.setUserData("resetBtn");
-//        segmentBtn.setUserData("segmentBtn");
-//
-//        segmentGrp.selectToggle(segmentBtn);
-//        segmentGrp.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
-//            isSegment = newValue.getUserData().toString().equals("segmentBtn");
-//        });
-
+        // 工具栏
         HBox topBar = new HBox(
                 CommUtils.createButton("snapBtn", MainFm::doSnap, "截图"),
                 CommUtils.createButton("openImageBtn", MainFm::recImage, "打开"),
                 CommUtils.createButton("copyBtn", this::copyText, "复制"),
                 CommUtils.createButton("pasteBtn", this::pasteText, "粘贴"),
                 CommUtils.createButton("clearBtn", this::clearText, "清空"),
-                CommUtils.createButton("wrapBtn", this::wrapText, "换行")
+                CommUtils.createButton("wrapBtn", this::wrapText, "换行"),
+                // ocr 可配置化,切换OCR引擎
+                CommUtils.createButton("configBtn", this::wrapText, "配置")
                 //CommUtils.SEPARATOR, resetBtn, segmentBtn
         );
         topBar.setId("topBar");
@@ -235,8 +227,7 @@ public class MainFm extends Application {
             GlobalScreen.setEventDispatcher(new VoidDispatchService());
             GlobalScreen.registerNativeHook();
             GlobalScreen.addNativeKeyListener(new GlobalKeyListener());
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
     }

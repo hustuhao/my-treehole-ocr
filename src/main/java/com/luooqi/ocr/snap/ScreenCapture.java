@@ -257,7 +257,7 @@ public class ScreenCapture {
 				data.hideExtraFeatures.set(true);
 		});
 
-		// keyReleased
+		// keyReleased 快捷键
 		scene.setOnKeyReleased(key -> {
 			if (key.getCode() == KeyCode.SHIFT) {
 				data.shiftPressed.set(false);
@@ -424,7 +424,7 @@ public class ScreenCapture {
 					BackgroundPosition.CENTER, new BackgroundSize(CaptureInfo.ScreenWidth, CaptureInfo.ScreenHeight, false, false, true, true))));
 			repaintCanvas();
 			stage.setScene(scene);
-			stage.setFullScreenExitHint("");
+			stage.setFullScreenExitHint("------退出全屏------");
 			if (stage.isIconified()){
 				stage.setIconified(false);
 			}

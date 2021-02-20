@@ -5,3 +5,30 @@ out/
 
 
 *.iml
+
+# folds
+target
+log
+app
+.settings
+
+# files
+*.log
+*.ipr
+*.iws
+*.class
+.DS_Store
+.classpath
+.project
+*.jar
+*.war
+*.zip
+*.tar.gz
+*.rar
+
+# others
+hs_err_pid*
+*.cache
+*.cache.lock
+rebel*.xml
+*.rebel*

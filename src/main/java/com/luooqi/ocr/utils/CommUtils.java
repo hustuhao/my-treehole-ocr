@@ -179,65 +179,12 @@ public class CommUtils {
         return sb.toString();
     }
 
-    static Point frameToPoint(String text) {
-        String[] arr = text.split(",");
-        return new Point(Integer.valueOf(arr[0].trim()), Integer.valueOf(arr[1].trim()));
-    }
-
-    static String postMultiData(String url, byte[] data, String boundary) {
-        return postMultiData(url, data, boundary, "", "");
-    }
-
-    private static String postMultiData(String url, byte[] data, String boundary, String cookie, String referer) {
-        try {
-            HttpRequest request = HttpUtil.createPost(url).timeout(15000);
-            request.contentType("multipart/form-data; boundary=" + boundary);
-            request.body(data);
-            if (StrUtil.isNotBlank(referer)) {
-                request.header("Referer", referer);
-            }
-            if (StrUtil.isNotBlank(cookie)) {
-                request.cookie(cookie);
-            }
-            HttpResponse response = request.execute();
-            return WebUtils.getSafeHtml(response);
-        } catch (Exception ex) {
-            StaticLog.error(ex);
-            return null;
-        }
-    }
-
-    static byte[] mergeByte(byte[]... bytes) {
-        int length = 0;
-        for (byte[] b : bytes) {
-            length += b.length;
-        }
-        byte[] resultBytes = new byte[length];
-        int offset = 0;
-        for (byte[] arr : bytes) {
-            System.arraycopy(arr, 0, resultBytes, offset, arr.length);
-            offset += arr.length;
-        }
-        return resultBytes;
-    }
-
     public static Button createButton(String id, Runnable action, String toolTip){
         return createButton(id, BUTTON_SIZE, action, toolTip);
     }
 
     public static Button createButton(String id, int size, Runnable action, String toolTip) {
         javafx.scene.control.Button button = new Button();
-        initButton(button, id, size, action, toolTip);
-        return button;
-    }
-
-    public static ToggleButton createToggleButton(ToggleGroup grp, String id, Runnable action, String toolTip){
-        return createToggleButton(grp, id, BUTTON_SIZE, action, toolTip);
-    }
-
-    public static ToggleButton createToggleButton(ToggleGroup grp, String id, int size, Runnable action, String toolTip) {
-        ToggleButton button = new ToggleButton();
-        button.setToggleGroup(grp);
         initButton(button, id, size, action, toolTip);
         return button;
     }
@@ -273,26 +220,12 @@ public class CommUtils {
         stage.getIcons().add(new javafx.scene.image.Image(MainFm.class.getResource("/img/logo.png").toExternalForm()));
     }
 
-    private static final Pattern SCALE_PATTERN = Pattern.compile("renderScale:([\\d.]+)");
-
     public static Rectangle getDisplayScreen(Stage stage){
         Screen crtScreen = getCrtScreen(stage);
         Rectangle2D rectangle2D = crtScreen.getBounds();
         return new Rectangle((int)rectangle2D.getMinX (), (int)rectangle2D.getMinY(),
                 (int)rectangle2D.getWidth(),
                 (int)rectangle2D.getHeight());
-    }
-
-    public static float getScale(Stage stage){
-        Screen crtScreen = getCrtScreen(stage);
-        float scale = 1.0f;
-        assert crtScreen != null;
-        String str = crtScreen.toString();
-        Matcher matcher = SCALE_PATTERN.matcher(str);
-        if (matcher.find()){
-            scale = Float.parseFloat(matcher.group(1));
-        }
-        return scale;
     }
 
     private static Screen getCrtScreen(Stage stage) {
