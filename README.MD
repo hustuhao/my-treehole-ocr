@@ -42,3 +42,14 @@ turato 自行添加功能：
 ![MAC权限设置](http://img.ifish.fun/Fo31NZQIhPNF6m7gOorRGDuKvaZ_)
 
 
+# 打包
+
+- 生成可以运行的jar包
+> mvn jfx:build-jar
+
+文件：target/app/treehole-1.2.5-jfx.jar
+
+- 本地安装包：
+> mvn jfx:native
+
+生成 target/native/treehole-X.X.X.dmg
